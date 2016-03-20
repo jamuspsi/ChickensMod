@@ -24,22 +24,39 @@ public class ItemColoredEgg extends ItemEgg {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        EnumDyeColor color = EnumDyeColor.byDyeDamage(stack.getMetadata());
-        return StatCollector.translateToLocal(getUnlocalizedName() + "." + color.getUnlocalizedName() + ".name");
+    	ChickensRegistryItem chicken = getChickensRegistryItem(stack);
+    	if(chicken.isDye()) {
+    		EnumDyeColor color = EnumDyeColor.byDyeDamage(chicken.getDyeMetadata());
+    		return StatCollector.translateToLocal(getUnlocalizedName() + "." + color.getUnlocalizedName() + ".name");
+    	} else {
+    		return StatCollector.translateToLocal(getUnlocalizedName() + "." + chicken.getEntityName() + ".egg.name");
+    	}
     }
 
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (ChickensRegistryItem chicken : ChickensRegistry.getItems()) {
-            if (chicken.isDye()) {
-                subItems.add(new ItemStack(itemIn, 1, chicken.getDyeMetadata()));
+            if (chicken.isDye() || chicken.canSpawn()) {
+                subItems.add(new ItemStack(itemIn, 1, chicken.getId()));
             }
         }
     }
 
     @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        return EnumDyeColor.byDyeDamage(stack.getMetadata()).getMapColor().colorValue;
+    	ChickensRegistryItem chicken = ChickensRegistry.getByType(stack.getMetadata());
+
+    	if(chicken.isDye()) {
+    		return EnumDyeColor.byDyeDamage(chicken.getDyeMetadata()).getMapColor().colorValue;	
+    	};
+    	
+    	
+    	if(chicken.getId() == 108) return EnumDyeColor.ORANGE.getMapColor().colorValue;
+    	else if(chicken.getId() == 101) return EnumDyeColor.GRAY.getMapColor().colorValue;
+    	else if(chicken.getId() == 105) return EnumDyeColor.PINK.getMapColor().colorValue;
+    	else if(chicken.getId() == 102) return EnumDyeColor.CYAN.getMapColor().colorValue;
+        
+    	return chicken.getBgColor();
     }
 
     @Override
@@ -64,10 +81,15 @@ public class ItemColoredEgg extends ItemEgg {
     }
 
     private int getChickenType(ItemStack itemStack) {
-        ChickensRegistryItem chicken = ChickensRegistry.findDyeChicken(itemStack.getMetadata());
+        ChickensRegistryItem chicken = ChickensRegistry.getByType(itemStack.getMetadata());
         if (chicken == null) {
             return -1;
         }
         return chicken.getId();
+    }
+    
+    private ChickensRegistryItem getChickensRegistryItem(ItemStack itemStack) {
+    	ChickensRegistryItem chicken = ChickensRegistry.getByType(itemStack.getMetadata());
+        return chicken;
     }
 }

@@ -57,3 +57,9 @@ tile.henhouse_birch.name=Birch Henhouse
 tile.henhouse_dark_oak.name=Dark Oak Henhouse
 tile.henhouse_jungle.name=Jungle Henhouse
 tile.henhouse_spruce.name=Spruce Henhouse
+
+item.colored_egg.SandChicken.egg.dname=Sand Egg
+item.colored_egg.LogChicken.egg.name=Wooden Egg
+item.colored_egg.FlintChicken.egg.name=Rock Egg
+item.colored_egg.SnowballChicken.egg.name=Snow Egg
+

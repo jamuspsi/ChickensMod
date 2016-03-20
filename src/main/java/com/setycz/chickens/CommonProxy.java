@@ -9,15 +9,23 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class CommonProxy {
     public void init() {
-
+    	
     }
 
     public void registerChicken(ChickensRegistryItem chicken) {
         if (chicken.isDye() && chicken.isEnabled()) {
             GameRegistry.addShapelessRecipe(
-                    new ItemStack(ChickensMod.coloredEgg, 1, chicken.getDyeMetadata()),
+                    new ItemStack(ChickensMod.coloredEgg, 1, chicken.getId()),
                     new ItemStack(Items.egg), new ItemStack(Items.dye, 1, chicken.getDyeMetadata())
             );
+        } else if(chicken.canSpawn() && chicken.isEnabled()) {
+        	GameRegistry.addShapedRecipe(new ItemStack(ChickensMod.coloredEgg, 1, chicken.getId()),
+        			"EEE",
+        			"EIE",
+        			"EEE",
+        			'E', new ItemStack(Items.egg),
+        			'I', chicken.createLayItem()
+        	);
         }
     }
 

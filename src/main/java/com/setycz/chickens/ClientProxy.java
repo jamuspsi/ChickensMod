@@ -46,8 +46,8 @@ public class ClientProxy extends CommonProxy {
 
         registerItemModel(ChickensMod.spawnEgg, chicken.getId());
 
-        if (chicken.isDye()) {
-            registerItemModel(ChickensMod.coloredEgg, chicken.getDyeMetadata());
+        if (chicken.isDye() || chicken.CanSpawn()) {
+            registerItemModel(ChickensMod.coloredEgg, chicken.getId());
         }
     }
 }
