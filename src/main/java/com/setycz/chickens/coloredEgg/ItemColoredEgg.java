@@ -51,11 +51,11 @@ public class ItemColoredEgg extends ItemEgg {
     	};
     	
     	
-    	if(chicken.getId() == 108) return EnumDyeColor.ORANGE.getMapColor().colorValue;
+    	/*if(chicken.getId() == 108) return EnumDyeColor.ORANGE.getMapColor().colorValue;
     	else if(chicken.getId() == 101) return EnumDyeColor.GRAY.getMapColor().colorValue;
     	else if(chicken.getId() == 105) return EnumDyeColor.PINK.getMapColor().colorValue;
     	else if(chicken.getId() == 102) return EnumDyeColor.CYAN.getMapColor().colorValue;
-        
+        */
     	return chicken.getBgColor();
     }
 
