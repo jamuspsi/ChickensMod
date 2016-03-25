@@ -179,10 +179,14 @@ public class EntityChickensChicken extends EntityChicken {
     }
 
     @Override
-    public int getTalkInterval()
+    public void playLivingSound()
     {
-        return 20 * 60;
+    	if(this.rand.nextFloat() > 0.1) {
+    		return;
+    	}
+    	super.playLivingSound();
     }
+    
     @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
     	if(this.rand.nextFloat() > 0.1) {
